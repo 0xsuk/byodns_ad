@@ -1,0 +1,126 @@
+{{template "header" .}}
+<div id="bd-dashboard">
+  <div class="padding">
+    <h2>Dashboard</h2>
+    <div>
+      <!-- canvas has to be contained by single element -->
+      <canvas id="bd-chart1" style="height: 200px"> </canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script>
+      //TODO set xaxis range && smooth scroll bar
+      const draw_chart = (resp) => {
+        //resp[0] check
+        let latest_stamp = Date.parse(resp[0].Timestamp);
+        let limitation_stamp = latest_stamp - 10000;
+        console.log("limitation:", limitation_stamp);
+        let data = [];
+        let labels = [];
+        let domains = [];
+        for (let e of resp) {
+          let t = Date.parse(e.Timestamp);
+          if (t < limitation_stamp) {
+            console.log("limitation takes effect");
+            break;
+          }
+          data.push(e.IsBlocked == "yes" ? 1 : 0);
+          labels.push(t);
+          domains.push(e.Domain);
+        }
+        let ylabels = { 0: "no", 1: "yes" };
+
+        let colorFunc = (context) => {
+          if (context == undefined) return "rgb(244, 57, 97)";
+          let index = context.dataIndex;
+          if (index == undefined) return "rgb(244, 57, 97)";
+          let value = context.dataset.data[index];
+          if (value == undefined) return "rgb(244, 57, 97)";
+          return value == 1 ? "rgb(244, 57, 97)" : "white";
+        };
+
+        let config = {
+          type: "scatter",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                backgroundColor: colorFunc,
+                borderColor: colorFunc,
+                data: data,
+              },
+            ],
+          },
+          options: {
+            responsive: true, //https://www.chartjs.org/docs/latest/configuration/responsive.html
+            maintainAspectRatio: false, //to set height
+            // parsing: {
+            //   yAxisKey: "y",
+            // },
+            plugins: {
+              title: {
+                display: true,
+                text: "Most Recent Activity",
+              },
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return "";
+                  },
+                  title: function (context) {
+                    return context.map((c) => {
+                      //somehow array is supported
+                      let index = c.dataIndex;
+                      return domains[index];
+                    });
+                  },
+                },
+              },
+            },
+            scales: {
+              x: {
+                type: "time",
+                time: {
+                  unit: "millisecond",
+                  displayFormats: {
+                    minute: "HH:mm",
+                  },
+                },
+                // ticks: {
+                min: limitation_stamp, //minus 1 minutes
+                // },
+                title: {
+                  display: true,
+                  text: "timestamp",
+                },
+              },
+              //yAxes was disabled
+              y: {
+                title: {
+                  display: true,
+                  text: "is domain blocked",
+                },
+                ticks: {
+                  beginAtZero: true,
+                  callback: function (value, index, values) {
+                    return ylabels[value];
+                  },
+                },
+              },
+            },
+          },
+        };
+        //takes 3 seconds
+        new Chart(document.getElementById("bd-chart1"), config);
+      };
+
+      fetch("/api/query/read")
+        .then((resp) => resp.json())
+        .then((resp) => draw_chart(resp));
+    </script>
+  </div>
+</div>
+{{template "footer"}}

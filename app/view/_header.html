@@ -1,0 +1,33 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>byodns</title>
+        <script src="static/script.js" path="{{.Path}}"></script>
+        <link rel="stylesheet" type="text/css" href="static/index.css"/>
+        <link rel="icon" href="static/favicon.ico"/>
+    </head>
+    <body>
+        <div id="bd-container">
+        <div id="bd-head">
+            <div class="padding">
+                <h1>byodns</h1>
+                <div class="padding">
+                    <p class="nav"><a href="/">
+                        Dashboard
+                    </a></p>
+                    <p class="nav"><a href="/query">
+                        Query logs
+                    </a></p>
+                    <p class="nav"><a href="/blacklist">
+                        Blacklist
+                    </a></p>
+                    <!--<p class="nav"><a href="/whitelist">
+                        Whitelist
+                    </a></p>-->
+                </div>
+            </div>
+        </div>
+        <main>
+{{end}}

@@ -1,0 +1,11 @@
+- create tracking list, along with CA
+- start https proxy
+- if connect request is to domain being tracked
+  - hijack
+- session based domain blocking (If organizer domain == "xxx") {then block domainxxx}
+
+- place LARGE blacklist, but don't use it
+  - if multiple blacklisted domain was requested in a short session, that's likely that the website user visited is malicious.
+  - take severe mode measure: use that LARGE blacklist
+
+- if dns request comes twice, its organizer

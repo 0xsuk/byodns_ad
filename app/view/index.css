@@ -1,0 +1,109 @@
+body {
+  background-color: #090528;
+  color: white;
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: white;
+}
+
+h1 > span {
+  font-size: 40px;
+  padding: 0 10px;
+  border-radius: 10px;
+  background-color: rgb(244, 57, 97);
+}
+
+#bd-container {
+  max-width: 1300px;
+  margin: auto;
+}
+#bd-footer {
+  text-align: center;
+}
+
+#bd-head .padding {
+  display: flex;
+  justify-content: space-between;
+}
+
+#bd-search {
+  border-radius: 5px;
+  line-height: 27px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.padding {
+  padding: 25px;
+}
+
+main {
+  padding: 0 40px;
+}
+
+.domains {
+  border-radius: 10px;
+  padding: 0 10px;
+  background-color: #1e2f4863;
+  margin-top: 50px;
+}
+.domains > .domain {
+  font-weight: 600;
+  background-color: rgb(70, 65, 125);
+  border-radius: 10px;
+}
+.domain {
+  padding: 0 20px;
+  flex-grow: 2;
+  display: flex;
+}
+.domain p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.domain p:nth-of-type(1) {
+  min-width: 40%;
+}
+.domain p:nth-child(2) {
+  width: 10%;
+}
+.domain p:nth-child(3) {
+  width: 13%;
+}
+.domain p:nth-child(4) {
+  width: 25%;
+}
+.domain p:nth-child(5) {
+  width: 12%;
+}
+.addBlacklist {
+  width: 12%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-top: 1px solid #ffffff21;
+}
+
+.row .editBlacklist {
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+}
+.row .delBlacklist {
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive */

@@ -1,0 +1,39 @@
+Heres how to uninstall
+Since unisntallation involves removing it is much more sensitive than installation, so I leave a txt instruction.
+
+1. remove binary
+sudo rm ~/go/bin/byodns
+
+2. remove assets directory 
+sudo rm -rf /etc/byodns
+
+3. disable service
+sudo systemctl stop byodns.service
+sudo systemctl disable byodns.service
+
+
+if you want redis to be disabled, or uninstalled
+sudo systemctl stop redis-server.service
+sudo systemctl disable redis-server.service
+
+sudo apt remove redis-server #If you want to uninstall redis-server only
+sudo apt autoremove redis-server #If you want to uninstall all the stuff that
+comes with redis-server
+
+sudo rm -rf /lib/systemd/system/redis* #If you have other service named redis,
+don't do this command because it will be deleted
+sudo rm -rf /etc/systemd/system/redis* #same above
+
+
+4. remove files
+sudo rm -rf /lib/systemd/system/byodns.service 
+sudo rm -rf /etc/systemd/system/byodns.service 
+
+
+(6). remove package #not so necessary
+When building source code, other third party is installed automatically.
+remove package you don't need
+sudo rm -rf ~/go/pkg/<path to package>
+
+5. remove repo
+sudo rm -rf <path to repo cloned>
